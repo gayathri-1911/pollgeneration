@@ -439,7 +439,7 @@ Modify `packages/server/src/models/` to change:
 ### 🐛 **Getting Help**
 - **Issues:** [GitHub Issues](https://github.com/gayathri-1911/pollgeneration/issues)
 - **Discussions:** [GitHub Discussions](https://github.com/gayathri-1911/pollgeneration/discussions)
-- **Email:** chaitanyabaggam3@gmail.com
+- **Email:** vantharamsuryagayathri.22.cse@anits.edu.in
 
 ## 🤝 Contributing
 
