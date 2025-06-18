@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: pollgen-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: pollgen_ai
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./scripts/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - pollgen-network
+
+  # Redis for Session Management
+  redis:
+    image: redis:7.2-alpine
+    container_name: pollgen-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - pollgen-network
+
+  # Backend Server
+  server:
+    build:
+      context: .
+      dockerfile: packages/server/Dockerfile
+    container_name: pollgen-server
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      MONGO_URI: mongodb://admin:password123@mongodb:27017/pollgen_ai?authSource=admin
+      REDIS_URL: redis://redis:6379
+      CLIENT_URL: http://localhost:3000
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key}
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+      - redis
+    volumes:
+      - ./packages/server/uploads:/app/uploads
+    networks:
+      - pollgen-network
+
+  # Frontend Client
+  client:
+    build:
+      context: .
+      dockerfile: packages/client/Dockerfile
+    container_name: pollgen-client
+    restart: unless-stopped
+    environment:
+      REACT_APP_API_URL: http://localhost:5000
+      REACT_APP_SOCKET_URL: ws://localhost:5000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    networks:
+      - pollgen-network
+
+  # Nginx Reverse Proxy (Optional)
+  nginx:
+    image: nginx:alpine
+    container_name: pollgen-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - client
+      - server
+    networks:
+      - pollgen-network
+
+volumes:
+  mongodb_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  pollgen-network:
+    driver: bridge

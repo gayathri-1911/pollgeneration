@@ -1,15 +1,19 @@
 {
-  "name": "poll-generation-server",
+  "name": "@pollgen-ai/server",
   "version": "1.0.0",
-  "description": "Backend for the Automatic Poll Generation app",
+  "description": "Backend server for PollGen AI with OpenAI integration",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "clean": "rimraf dist"
   },
   "dependencies": {
+    "@pollgen-ai/shared": "file:../shared",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",

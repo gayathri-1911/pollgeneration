@@ -35,47 +35,64 @@ An AI-powered educational platform that generates intelligent poll questions fro
 
 ### Installation
 
-1. **Clone the repository**
+#### **Option 1: Quick Start (Recommended)**
 ```bash
-git clone https://github.com/yourusername/pollgen-ai.git
+# Clone the repository
+git clone https://github.com/chaiayabaggam/pollgen-ai.git
 cd pollgen-ai
+
+# Run development script
+# On Windows:
+.\scripts\dev.ps1
+
+# On Unix/Linux/macOS:
+chmod +x scripts/dev.sh
+./scripts/dev.sh
 ```
 
-2. **Install dependencies**
+#### **Option 2: Manual Setup**
 ```bash
-# Install server dependencies
-cd server
+# 1. Clone and navigate
+git clone https://github.com/chaiayabaggam/pollgen-ai.git
+cd pollgen-ai
+
+# 2. Install all dependencies (monorepo)
 npm install
 
-# Install client dependencies
-cd ../client
-npm install
+# 3. Build shared package
+npm run build --workspace=packages/shared
+
+# 4. Setup environment
+cp packages/server/.env.example packages/server/.env
+# Edit packages/server/.env and add your OpenAI API key
+
+# 5. Start development servers
+npm run dev
 ```
 
-3. **Environment Setup**
+#### **Option 3: Docker Setup**
 ```bash
-# Copy environment template
-cd ../server
-cp .env.example .env
+# Clone repository
+git clone https://github.com/chaiayabaggam/pollgen-ai.git
+cd pollgen-ai
 
-# Add your OpenAI API key
-OPENAI_API_KEY=your-openai-api-key-here
+# Create .env file
+cp packages/server/.env.example packages/server/.env
+# Add your OpenAI API key to packages/server/.env
+
+# Start with Docker Compose
+docker-compose up -d
+
+# Access the application
+# Frontend: http://localhost:3000
+# Backend: http://localhost:5000
+# MongoDB: localhost:27017
 ```
 
-4. **Start the application**
-```bash
-# Terminal 1 - Start backend server
-cd server
-npm start
-
-# Terminal 2 - Start frontend client
-cd client
-npm start
-```
-
-5. **Access the application**
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
+### **Access Points**
+- **Frontend:** http://localhost:3000
+- **Backend API:** http://localhost:5000
+- **API Documentation:** http://localhost:5000/api/docs
 
 ## 🎨 UI Features
 
@@ -110,21 +127,36 @@ npm start
 - **GPT-3.5-turbo** - Intelligent poll generation
 - **Real-time Processing** - Live audio analysis
 
-## 📁 Project Structure
+## 📁 Monorepo Structure
 
 ```
 pollgen-ai/
-├── client/                 # React frontend
-│   ├── src/
-│   │   ├── components/     # Reusable components
-│   │   ├── pages/         # Main page components
-│   │   ├── contexts/      # React contexts
-│   │   └── styles/        # CSS and animations
-├── server/                # Node.js backend
-│   ├── src/
-│   │   ├── routes/        # API routes
-│   │   ├── models/        # Data models
-│   │   └── index.ts       # Server entry point
+├── packages/
+│   ├── client/            # React frontend (@pollgen-ai/client)
+│   │   ├── src/
+│   │   │   ├── components/     # Reusable components
+│   │   │   ├── pages/         # Main page components
+│   │   │   ├── contexts/      # React contexts
+│   │   │   └── styles/        # CSS and animations
+│   │   ├── Dockerfile     # Client container config
+│   │   └── nginx.conf     # Nginx configuration
+│   ├── server/            # Node.js backend (@pollgen-ai/server)
+│   │   ├── src/
+│   │   │   ├── routes/        # API routes
+│   │   │   ├── models/        # Data models
+│   │   │   └── index.ts       # Server entry point
+│   │   └── Dockerfile     # Server container config
+│   └── shared/            # Shared utilities (@pollgen-ai/shared)
+│       ├── src/
+│       │   ├── types/         # TypeScript interfaces
+│       │   ├── utils/         # Common utilities
+│       │   └── constants/     # App constants
+│       └── package.json   # Shared package config
+├── scripts/               # Development scripts
+│   ├── dev.sh            # Unix development script
+│   └── dev.ps1           # Windows development script
+├── docker-compose.yml     # Multi-container setup
+├── package.json          # Root workspace configuration
 └── README.md
 ```
 

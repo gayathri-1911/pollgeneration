@@ -1,8 +1,9 @@
 {
-  "name": "poll-generation-client",
-  "version": "0.1.0",
+  "name": "@pollgen-ai/client",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@pollgen-ai/shared": "file:../shared",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -24,7 +25,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "react-scripts start",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "clean": "rimraf build"
   },
   "eslintConfig": {
     "extends": [
