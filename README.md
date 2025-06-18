@@ -69,7 +69,7 @@ Before running the application, ensure you have:
 
 #### **Step 1: Clone the Repository**
 ```bash
-git clone https://github.com/chaiayabaggam/pollgen-ai.git
+git clone https://github.com/gayathri-1911/pollgen-ai.git
 cd pollgen-ai
 ```
 
@@ -121,7 +121,7 @@ npm run dev
 
 #### **Step 1: Clone and Setup**
 ```bash
-git clone https://github.com/chaiayabaggam/pollgen-ai.git
+git clone https://github.com/gayathri-1911/pollgen-ai.git
 cd pollgen-ai
 
 # Setup environment
@@ -437,8 +437,8 @@ Modify `packages/server/src/models/` to change:
 - **Ensure stable internet connection** for real-time features
 
 ### 🐛 **Getting Help**
-- **Issues:** [GitHub Issues](https://github.com/chaiayabaggam/pollgen-ai/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/chaiayabaggam/pollgen-ai/discussions)
+- **Issues:** [GitHub Issues](https://github.com/gayathri-1911/pollgen-ai/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/gayathri-1911/pollgen-ai/discussions)
 - **Email:** chaitanyabaggam3@gmail.com
 
 ## 🤝 Contributing
@@ -475,7 +475,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🚀 **Ready to Get Started?**
 
-1. **Clone the repo:** `git clone https://github.com/chaiayabaggam/pollgen-ai.git`
+1. **Clone the repo:** `git clone https://github.com/gayathri-1911/pollgen-ai.git`
 2. **Setup environment:** Add your OpenAI API key
 3. **Run the app:** `npm run dev` or use our automated scripts
 4. **Start creating:** Record audio and generate intelligent polls!
